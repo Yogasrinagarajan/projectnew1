@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Employee_CustomerController;
+use App\Http\Controllers\CustomerprofileController;
 
 
 
@@ -38,20 +39,24 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['prefix'=>'admin', 'middleware'=>['isadmin','auth']], function(){
 
     Route::get('/admindashboard', [HomeController::class, 'admin'])->name('admin'); 
+    Route::resource('/customer',CustomerController::class);
+	Route::resource('/employee',EmployeeController::class);
 
 });
 
-Route::group(['prefix'=>'emp', 'middleware'=>['isemp','auth']], function(){
+Route::group(['prefix'=>'employee', 'middleware'=>['isemp','auth']], function(){
 
     Route::get('/employeedashboard', [HomeController::class, 'emp'])->name('emp'); 
+    Route::resource('/emp',Employee_CustomerController::class);
     });
 
-Route::group(['prefix'=>'cus', 'middleware'=>['iscus','auth']], function(){
+Route::group(['prefix'=>'customer', 'middleware'=>['iscus','auth']], function(){
 
-    Route::get('/customerdashboard', [HomeController::class, 'cus'])->name('cus'); // Customer Home
+    Route::get('/customerdashboard', [HomeController::class, 'cus'])->name('cus');
+    Route::resource('/customerprofile',CustomerprofileController::class); // Customer Home
 });
 
-Route::resource('/customer',CustomerController::class);
-Route::resource('/employee',EmployeeController::class);
 
-Route::resource('/employee',Employee_CustomerController::class);
+
+
+

@@ -9,7 +9,7 @@
           </h2>
        </div>
        <div class=" position-absolute top-0 end-0">
-          <a href="{{route('employee.create')}}"><button class="btn btn-primary">Add Customer</button></a>
+          <a href="{{route('emp.create')}}"><button class="btn btn-primary">Add Customer</button></a>
         </div>
     </div>
   		<table class="table fs-6">
@@ -30,7 +30,7 @@
             <td>{{ $view->email}}</td>
             <td>{{ $view->phonenumber}}</td>
             <td>
-              	<a href="{{ url('employee/'.$view->id.'/edit')}}" class="btn btn-primary">Edit</a>
+              	<a href="{{ url('employee/emp/'.$view->id.'/edit')}}" class="btn btn-primary">Edit</a>
               	<!-- <a href="{{('deletecustomer/'.$view->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{  $view->firstname }}')">Delete</a> -->
             </td>
             

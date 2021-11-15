@@ -63,7 +63,7 @@ class CustomerController extends Controller
            $add->role='cus';
            $add->password=Hash::make('1234567890');
            $add->save();
-           return redirect('customer/create')->with('message','Inserted Successfully');
+           return redirect('admin/customer/create')->with('message','Inserted Successfully');
     }
 
     /**
@@ -108,7 +108,7 @@ class CustomerController extends Controller
         $data->email=$request->email;
         $data->phonenumber=$request->phno;
         $data->save();
-        return redirect('customer/'.$data->id.'/edit')->with('message','Updated Successfully');
+        return redirect('admin/customer/'.$data->id.'/edit')->with('message','Updated Successfully');
     }
     
 
@@ -128,6 +128,6 @@ class CustomerController extends Controller
          $data->active_status="0";
          $data->delete_status="1";
          $data->save();
-         return redirect('customer');
+         return redirect('admin/customer');
     }
 }

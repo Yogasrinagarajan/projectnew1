@@ -50,7 +50,7 @@ class EmployeeController extends Controller
         $employee->role='emp';
         $employee->password=Hash::make('1234567890');
         $employee->save();
-        return redirect('employee/create')->with('message','Inserted Successfully');
+        return redirect('admin/employee/create')->with('message','Inserted Successfully');
     }
 
     /**
@@ -95,7 +95,7 @@ class EmployeeController extends Controller
         $data->email=$request->email;
         $data->phonenumber=$request->phno;
         $data->save();
-        return redirect('employee/'.$data->id.'/edit')->with('message','Updated Successfully');
+        return redirect('admin/employee/'.$data->id.'/edit')->with('message','Updated Successfully');
     }
 
     /**
@@ -111,6 +111,6 @@ class EmployeeController extends Controller
          $data->active_status="0";
          $data->delete_status="1";
          $data->save();
-         return redirect('employee');
+         return redirect('admin/employee');
     }
 }

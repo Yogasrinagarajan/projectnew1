@@ -1,6 +1,17 @@
-@extends('admin')
-@section('content')
-	<div class="container d-flex flex-column justify-content-center w-50 mt-5 ">
+@extends('customer')
+@section('cuscontent')
+
+<div>
+	@if(isset(Auth::user()->email))
+	<div>
+		<h1>welcome {{Auth::user()->name}}</h1>
+	</div>
+	@endif
+</div>
+
+
+
+<div class="container d-flex flex-column justify-content-center w-50 mt-5 ">
 
         <div>
             @if(session()->has('message'))
@@ -9,20 +20,20 @@
             </div>
             @endif
         </div>
-            
+           
 		<center><h1 class="h2">Update</h1></center>
-		<form action="{{ url('admin/customer/'.$data->id)}}" method="POST"  name="fn" onsubmit="return validateForm()">
-			@csrf
+		<form action="{{   url('customer/customerprofile/'.Auth::user()->id) }}" method="POST"  name="fn" onsubmit="return validateForm()">
+		@csrf
             @method('PUT')
              <?php
-                 $name=$data->name;
+                 $name=Auth::user()->name;
                  $name1=explode(" ",$name);
                  $fn=$name1[0];
                  $ln=$name1[1];
             ?>
 			<div class="mt-4 mx-5">
                
-                <x-jet-input id="id" class="block mt-1 w-full" type="hidden" name="id" value="{{$data['id']}}" required  />
+                <x-jet-input id="id" class="block mt-1 w-full" type="hidden" name="id" value="{{Auth::user()->id}}" required  />
             </div>
 
             <div class="mt-4 mx-5">
@@ -37,12 +48,12 @@
 
             <div class="mt-4 mx-5">
                 <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{$data['email']}}" required />
+                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{Auth::user()->email}}" required />
             </div>
 
             <div class="mt-4 mx-5">
                 <x-jet-label for="phno" value="{{ __('Phone') }}" />
-                <x-jet-input id="phno" class="block mt-1 w-full" type="text" name="phno" value="{{$data['phonenumber']}}" required pattern="[0-9]{10}" />
+                <x-jet-input id="phno" class="block mt-1 w-full" type="text" name="phno" value="{{Auth::user()->phonenumber}}" required pattern="[0-9]{10}" />
             </div>
 
 				<!-- <label for= "fname" class="form-label fs-5">First Name</label><br>
@@ -58,6 +69,5 @@
 			<div class="mt-4">	
 		</form>
 	</div>	
+
 @endsection
-
-

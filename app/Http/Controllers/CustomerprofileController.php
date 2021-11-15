@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-class Employee_CustomerController extends Controller
+class CustomerprofileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,7 @@ class Employee_CustomerController extends Controller
     public function index()
     {
         //
-        $view=User::where('active_status','1')->where('role','cus')->get();
-        return view('employee/customerdetails',compact('view'));
+        return view('customer/customerprofile');
     }
 
     /**
@@ -27,7 +27,7 @@ class Employee_CustomerController extends Controller
     public function create()
     {
         //
-         return view('employee/addcustomer');
+        return view('customer/customerupdate');
     }
 
     /**
@@ -39,17 +39,7 @@ class Employee_CustomerController extends Controller
     public function store(Request $request)
     {
         //
-        $fn=request('fname');
-        $ln=request('lname');
-        $name=$fn." ".$ln;
-        $employee=new User();
-        $employee->name=$name;
-        $employee->email=request('email');
-        $employee->phonenumber=request('phno');
-        $employee->role='cus';
-        $employee->password=Hash::make('1234567890');
-        $employee->save();
-        return redirect('employee/emp/create')->with('message','Inserted Successfully');
+        
     }
 
     /**
@@ -61,6 +51,7 @@ class Employee_CustomerController extends Controller
     public function show($id)
     {
         //
+         // return view('customer/customerupdate');
     }
 
     /**
@@ -72,9 +63,10 @@ class Employee_CustomerController extends Controller
     public function edit($id)
     {
         //
-        $data = User::find($id);
-        return view('employee/editcustomer',['data'=>$data]);
+        
+       
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -83,9 +75,17 @@ class Employee_CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
         //
+        $request->validate([
+
+            'fname'=>'required',
+            'lname'=>'required',
+            'email'=>'required',
+            'phno'=>'required'
+
+          ]);
         $data=User::find($request->id);
         $fn=request('fname');
         $ln=request('lname');
@@ -94,7 +94,8 @@ class Employee_CustomerController extends Controller
         $data->email=$request->email;
         $data->phonenumber=$request->phno;
         $data->save();
-        return redirect('employee/emp/'.$data->id.'/edit')->with('status','Updated Successfully');
+        return redirect('customer/customerprofile/')->with('message','Updated Successfully');
+         
     }
 
     /**

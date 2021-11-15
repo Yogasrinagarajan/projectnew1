@@ -11,7 +11,7 @@
         </div>
             
 		<center><h1 class="h2">Update</h1></center>
-		<form action="{{ url('employee/'.$data->id)}}" method="POST"  name="fn" onsubmit="return validateForm()">
+		<form action="{{ url('admin/employee/'.$data->id)}}" method="POST"  name="fn" onsubmit="return validateForm()">
 			@csrf
             @method('PUT')
             <?php

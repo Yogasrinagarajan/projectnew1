@@ -31,11 +31,11 @@
             <td>{{ $view->email}}</td>
             <td>{{ $view->phonenumber}}</td>
             <td>
-              	<a href="{{ url('customer/'.$view->id.'/edit')}}" class="btn btn-primary">Edit</a>
+              	<a href="{{ url('admin/customer/'.$view->id.'/edit')}}" class="btn btn-primary">Edit</a>
               	<!-- <a href="{{('deletecustomer/'.$view->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{  $view->firstname }}')">Delete</a> -->
             </td>
             <td>
-                <form action="{{ url('customer/'.$view->id) }}" method="POST">
+                <form action="{{ url('admin/customer/'.$view->id) }}" method="POST">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{  $view->name }}')">Delete</button>

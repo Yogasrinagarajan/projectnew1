@@ -11,7 +11,6 @@
 		<center><h1 class="h2">ADD FORM</h1></center>
 		<form action="{{ route('employee.store') }}" method="POST"  name="fn" onsubmit="return validateForm()">
 			@csrf
-
             <div class="mt-4 mx-5">
                 <x-jet-label for="fname" value="{{ __('First Name') }}" />
                 <x-jet-input id="fname" class="block mt-1 w-full" type="text" name="fname" :value="old('fname')"  autofocus autocomplete="fname" />

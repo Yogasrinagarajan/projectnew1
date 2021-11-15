@@ -11,7 +11,7 @@
             @endif
         </div>
 		<center><h1 class="h2">ADD FORM</h1></center>
-		<form action="{{ route('employee.store') }}" method="POST"  name="fn" onsubmit="return validateForm()">
+		<form action="{{ route('emp.store') }}" method="POST"  name="fn" onsubmit="return validateForm()">
 			@csrf
 
             <div class="mt-4 mx-5">
