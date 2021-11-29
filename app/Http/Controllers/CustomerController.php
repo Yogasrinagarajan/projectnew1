@@ -44,7 +44,7 @@ class CustomerController extends Controller
 
             'fname'=>'required',
             'lname'=>'required',
-            'email'=>'required',
+            'email'=>'required|unique:users',
             'phno'=>'required'
 
           ]);
@@ -100,6 +100,15 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
         //
+         $request->validate([
+
+            'fname'=>'required',
+            'lname'=>'required',
+            'email'=>'required',
+            'phno'=>'required'
+
+          ]);
+
         $data=User::find($request->id);
         $fn=request('fname');
         $ln=request('lname');

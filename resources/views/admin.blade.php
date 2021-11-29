@@ -33,7 +33,14 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ url('admin/employee') }}" :active="request()->routeIs('employee.index')">
-                        {{ __('Employee1') }}
+                        {{ __('Employee') }}
+                    </x-jet-nav-link>
+                </div>
+
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ url('admin/team') }}" :active="request()->routeIs('team.index')">
+                        {{ __('Team') }}
                     </x-jet-nav-link>
                 </div>
 

@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Actions\Jetstream\DeleteUser;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
-
+use App\Models\User;
 class JetstreamServiceProvider extends ServiceProvider
 {
     /**
@@ -45,5 +45,14 @@ class JetstreamServiceProvider extends ServiceProvider
             'update',
             'delete',
         ]);
+
+  
+         Jetstream::role('admin','Administrator',[
+            'create',
+            'read',
+            // 'update',
+             'delete',
+        ]);
     }
 }
+

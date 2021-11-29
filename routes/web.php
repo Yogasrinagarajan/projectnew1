@@ -8,7 +8,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Employee_CustomerController;
 use App\Http\Controllers\CustomerprofileController;
-
+use App\Http\Controllers\AdminTeamController;
 
 
 
@@ -22,7 +22,7 @@ use App\Http\Controllers\CustomerprofileController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+ 
 Route::get('/', function () {
     return view('welcome');
 });
@@ -41,6 +41,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isadmin','auth']], function(){
     Route::get('/admindashboard', [HomeController::class, 'admin'])->name('admin'); 
     Route::resource('/customer',CustomerController::class);
 	Route::resource('/employee',EmployeeController::class);
+	Route::resource('/team',AdminTeamController::class);
+
 
 });
 
@@ -54,9 +56,12 @@ Route::group(['prefix'=>'customer', 'middleware'=>['iscus','auth']], function(){
 
     Route::get('/customerdashboard', [HomeController::class, 'cus'])->name('cus');
     Route::resource('/customerprofile',CustomerprofileController::class); // Customer Home
-});
+}); 
+
+Route::get('/export',[AdminTeamController::class,'export']);
+Route::get('/importfile',[AdminTeamController::class,'importfile']);
+Route::post('/import',[AdminTeamController::class,'import'])->name('import');
 
 
 
-
-
+    

@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Gate;
+use Laravel\Jetstream\Jetstream;
 class EmployeeController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -40,6 +43,16 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         //
+
+            $request->validate([
+
+            'fname'=>'required',
+            'lname'=>'required',
+            'email'=>'required|unique:users',
+            'phno'=>'required'
+
+          ]);
+
         $fn=request('fname');
         $ln=request('lname');
         $name=$fn." ".$ln;
@@ -87,7 +100,28 @@ class EmployeeController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+            $request->validate([ 
+
+            'fname'=>'required',
+            'lname'=>'required',
+            'email'=>'required',
+            'phno'=>'required'
+
+          ]);
+        
+
+        // if(Gate::denies('is_admin')){
+        //     abort(code:403);
+        // }
+
         $data=User::find($request->id);
+
+        $user=$request->user();
+        if($user->hasPermissions($data,'update')){
+            abort(401,'cannot update');
+        }
+
         $fn=request('fname');
         $ln=request('lname');
         $name=$fn." ".$ln;
@@ -104,7 +138,7 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
         //
          $data=User::find($id);

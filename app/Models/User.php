@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Haruncpi\LaravelUserActivity\Traits\loggable;
 
 class User extends Authenticatable
 {
@@ -17,12 +18,29 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use loggable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
+
+
+
+    // public function emps()
+    // {
+    //     return $this->belongsToMany(Emp::class,'groups');
+    // }
+
+     public function users()
+    {
+         return $this->belongsToMany(User::class, 'teammembers', 'user_id', 'teammember_id');
+    }
+
+    
+
+
     protected $fillable = [
         'name',
         'email',

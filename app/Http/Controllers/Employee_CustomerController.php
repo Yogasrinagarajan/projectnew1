@@ -39,6 +39,15 @@ class Employee_CustomerController extends Controller
     public function store(Request $request)
     {
         //
+            $request->validate([
+
+            'fname'=>'required',
+            'lname'=>'required',
+            'email'=>'required|unique:users',
+            'phno'=>'required'
+
+          ]);
+
         $fn=request('fname');
         $ln=request('lname');
         $name=$fn." ".$ln;
@@ -86,6 +95,15 @@ class Employee_CustomerController extends Controller
     public function update(Request $request, $id)
     {
         //
+            $request->validate([
+
+            'fname'=>'required',
+            'lname'=>'required',
+            'email'=>'required',
+            'phno'=>'required'
+
+          ]);
+
         $data=User::find($request->id);
         $fn=request('fname');
         $ln=request('lname');
