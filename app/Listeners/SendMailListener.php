@@ -29,8 +29,9 @@ class SendMailListener
     {
         //
         $email=$event->email;
-        $name=$event->name;
-        Mail::raw($name.' Registered Successfully',function($message) use ($email){
+       $data=['email'=>$event->email,
+       'name'=>$event->name];
+        Mail::send('admin.mailmsg',['data1'=>$data],function($message) use ($email){
             $message->from('yogasrin1812@gmail.com');
             $message->to($email)->subject('Success message');
         });

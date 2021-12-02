@@ -27,6 +27,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/mail', function () {
+    return view('admin/mailmsg');
+});
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
@@ -44,6 +48,9 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isadmin','auth']], function(){
 	Route::resource('/team',AdminTeamController::class);
     Route::get('/sendmail',[EventController::class,'index']);
     Route::post('/sendmailevent',[EventController::class,'create'])->name('mail');
+    Route::get('/mail', function () {
+    return view('admin/mailmsg');
+});
 
 
 });
