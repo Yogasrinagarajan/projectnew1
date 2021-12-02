@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserEvent'=>[
             'App\Listeners\UserListener',
         ],
+        'App\Events\SendMailEvent'=>[
+            'App\Listeners\SendMailListener',
+        ],
     ];
 
     /**

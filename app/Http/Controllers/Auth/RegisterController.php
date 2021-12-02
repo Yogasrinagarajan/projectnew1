@@ -1,5 +1,5 @@
 <?php
-
+ 
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use App\Events\SendMailEvent;
 class RegisterController extends Controller
 {
     /*
@@ -64,10 +64,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        event(new SendMailEvent($data['name'],$data['email']));
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phonenumber' => $data['phone'],
             'password' => Hash::make($data['password']),
         ]);
+       
     }
 }
