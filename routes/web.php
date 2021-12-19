@@ -10,6 +10,7 @@ use App\Http\Controllers\Employee_CustomerController;
 use App\Http\Controllers\CustomerprofileController;
 use App\Http\Controllers\AdminTeamController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\formController;
 
 
 /*
@@ -73,5 +74,7 @@ Route::post('/import',[AdminTeamController::class,'import'])->name('import');
 //Route::get('event',[EventController::class,'index']);
 
 
+//crud form using repository
+Route::resource('/form',formController::class); 
 
     

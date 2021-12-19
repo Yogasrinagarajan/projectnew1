@@ -1,4 +1,4 @@
- 
+
 @extends('admin')
 
 @section('content')
@@ -9,10 +9,18 @@
               {{ __('Customer Details') }}
           </h2>
        </div>
+       
        <div class=" position-absolute top-0 end-0">
-          <a href="{{ route('customer.create') }}"><button class="btn btn-primary">Add Customer</button></a>
+          <a href="{{ route('form.create') }}"><button class="btn btn-primary">Add Customer</button></a>
         </div>
     </div>
+     <div>
+            @if(session()->has('message'))
+             <div class="alert alert-success">
+                {{  session()->get('message') }}
+            </div>
+            @endif
+        </div>
   		<table class="table fs-6">
   			<thead>
 	         <tr>
@@ -20,7 +28,6 @@
 	            <th scope="col">Name</th>
 	            <th scope="col">Email</th>
 	            <th scope="col">Phone</th>
-	             <th scope="col">Action</th>
 	         </tr>
 	        </thead> 
          @foreach ($view as $view)
@@ -29,13 +36,13 @@
             <td>{{ $view->name}}</td>
             <!-- <td>{{ $view->lastname}}</td> -->
             <td>{{ $view->email}}</td>
-            <td>{{ $view->phonenumber}}</td>
+            <td>{{ $view->phone}}</td>
             <td>
-              	<a href="{{ url('admin/customer/'.$view->id.'/edit')}}" class="btn btn-primary">Edit</a>
+              	<a href="{{ url('/form/'.$view->id.'/edit')}}" class="btn btn-primary">Edit</a>
               	<!-- <a href="{{('deletecustomer/'.$view->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{  $view->firstname }}')">Delete</a> -->
             </td>
             <td>
-                <form action="{{ url('admin/customer/'.$view->id) }}" method="POST">
+                <form action="{{ url('/form/'.$view->id) }}" method="POST">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{  $view->name }}')">Delete</button>

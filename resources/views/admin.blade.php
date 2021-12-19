@@ -3,6 +3,7 @@
 <head>
     <title></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
     <x-app-layout>
@@ -20,32 +21,32 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" class="nav-link">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ url('admin/customer') }}" :active="request()->routeIs('customer.index')">
+                    <x-jet-nav-link href="{{ url('admin/customer') }}" :active="request()->routeIs('customer.index')" class="nav-link">
                         {{ __('Customer') }}
                     </x-jet-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ url('admin/employee') }}" :active="request()->routeIs('employee.index')">
+                    <x-jet-nav-link href="{{ url('admin/employee') }}" :active="request()->routeIs('employee.index')" class="nav-link">
                         {{ __('Employee') }}
                     </x-jet-nav-link>
                 </div>
 
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ url('admin/team') }}" :active="request()->routeIs('team.index')">
+                    <x-jet-nav-link href="{{ url('admin/team') }}" :active="request()->routeIs('team.index')" class="nav-link">
                         {{ __('Team') }}
                     </x-jet-nav-link>
                 </div>
 
                  <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ url('admin/sendmail') }}" :active="request()->routeIs('sendemail.index')">
+                    <x-jet-nav-link href="{{ url('admin/sendmail') }}" :active="request()->routeIs('sendemail.index')" class="nav-link">
                         {{ __('Send Mail') }}
                     </x-jet-nav-link>
                 </div>
@@ -256,14 +257,32 @@
             {{ __('Admin Dashboard') }}
         </h2>
     </div>
-     <div>
+     <div id="page-content">
         @yield('content')
      </div>
 </x-app-layout>
 </body>
 </html>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+     $(document).on('click','a.nav-link', function(e){
+   e.preventDefault();
+   var pageURL=$(this).attr('href');
+   
+    window.history.pushState(null, '', pageURL);
+     
+    $.ajax({    
+       type: "GET",
+       data:{page:pageURL},            
+       dataType: "html",                  
+       success: function(data){ 
+         
+        $('#pageContent').html(data);    
+               
+       }
 
-
+   });
+});
+</script>
 
 
